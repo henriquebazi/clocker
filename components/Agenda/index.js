@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/button"
+import { Button, Text } from "@chakra-ui/button"
 import firebase from './../../config/firebase'
 
 export const Agenda = () => {
@@ -7,6 +7,7 @@ export const Agenda = () => {
   return (
     <div>
       <Button onClick={logout}>Sair</Button>
+      <Text>Oi</Text>
     </div>
   )
 }
