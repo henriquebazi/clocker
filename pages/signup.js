@@ -2,7 +2,6 @@ import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import * as yup from 'yup'
-import axios from 'axios'
 
 import { Container, Box, Input, Button, Text, FormControl, FormLabel, FormHelperText, InputGroup, InputLeftAddon, Link } from '@chakra-ui/react'
 
