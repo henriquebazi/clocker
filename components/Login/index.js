@@ -4,7 +4,7 @@ import * as yup from 'yup'
 import { Container, Box, Input, Button, Text, FormControl, FormLabel, FormHelperText, Link } from '@chakra-ui/react'
 
 import { Logo } from '../Logo'
-import { firebaseClient, persistenceMode } from '../../config/firebase'
+import { firebaseClient, persistenceMode } from '../../config/firebase/client'
 import 'firebase/auth'
 
 const validationSchema = yup.object().shape({
