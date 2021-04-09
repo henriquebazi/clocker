@@ -6,6 +6,17 @@ import axios from 'axios'
 
 import { Input } from '../Input'
 
+const setSchedule = async (data) => {
+  return axios({
+    method: 'post',
+    url: '/api/schedule',
+    data: { 
+      ...data,
+      username: window.location.pathname.replace('/', '')
+    }
+  })
+}
+
 const ModalTimeBlock = ({ isOpen, onClose, onComplete, children }) => (
   <Modal isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
@@ -32,10 +43,10 @@ export const TimeBlock = ({time}) => {
   const toggle = () => setIsOpen(prevState => !prevState)
 
   const { values, handleSubmit, handleChange, handleBlur, errors, touched, } = useFormik({
-    onSubmit: () => {},
+    onSubmit: (values) => setSchedule({ ...values, when: time }),
     initialValues: {
       name: '',
-      email: ''
+      phone: ''
     },
     validationSchema: yup.object().shape({
       name: yup.string().required('Preenchimento obrigatório'),

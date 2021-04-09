@@ -7,15 +7,16 @@ import axios from 'axios'
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
 import { Button, Container, Box, IconButton, SimpleGrid, Spinner } from "@chakra-ui/react"
 
-import { useAuth, Logo, formatDate, TimeBlock } from './../components'
+import { Logo, formatDate, TimeBlock } from './../components'
 
-const getSchedule = async (when) => {
-  return axios({
+const getSchedule = async ( when ) => axios({
     method: 'get',
     url: '/api/schedule',
-    params: { when, username: window.location.pathname }
-  })
-}
+    params: {
+      when,
+      username: window.location.pathname
+    },
+})
 
 const Header = ({ children }) => (
   <Box p={4} display="flex" justifyContent="space-between" alignItems="center">
@@ -25,12 +26,11 @@ const Header = ({ children }) => (
 
 export default function Schedule () {
   const router = useRouter()
-  const [auth, { logout }] = useAuth()
   const [when, setWhen] = useState(() => new Date())
-  const [data, { loading, status, error }, fetch] = useFetch(getSchedule, { lazy: true })
+  const [data, { loading }, fetch] = useFetch(getSchedule, { lazy: true })
 
-  const addDay = () => setWhen(prevState => addDays(when, 1))
-  const removeDay = () => setWhen(prevState => subDays(when, 1))
+  const addDay = () => setWhen(prevState => addDays(prevState, 1))
+  const removeDay = () => setWhen(prevState => subDays(prevState, 1))
 
   useEffect(() => {
     fetch(when)
@@ -40,7 +40,7 @@ export default function Schedule () {
     <Container>
       <Header mt={8}>
         <Logo size={150} />
-        <Button onClick={logout}>Sair</Button>
+        <Button>Sair</Button>
       </Header>
 
       <Box display="flex" alignItems="center" >

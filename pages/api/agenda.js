@@ -9,14 +9,14 @@ export default async (req, res) => {
   }
 
   try {
-    const [, token] = req.headers.authorization.split(' ')
-    const { user_id } = await firebaseServer.auth().verifyIdToken(token)
-    const snapshot = await agenda
-      .where('userId', '==', user_id)
-      .where('when', '==', req.query.when)
-      .get()
+    // const [, token] = req.headers.authorization.split(' ')
+    // const { user_id } = await firebaseServer.auth().verifyIdToken(token)
+    // const snapshot = await agenda
+    //   .where('userId', '==', user_id)
+    //   .where('when', '==', req.query.when)
+    //   .get()
   
-    return res.status(200).json(snapshot.docs)
+    return res.status(200).json({ oi: 'oi'})
 
   } catch (error) {
     console.log('FB ERROR:', error)
