@@ -1,4 +1,4 @@
-import { firebaseServer } from './../../config/firebase/server'
+import { firebaseServer } from '../../config/firebase/server'
 
 const database = firebaseServer.firestore()
 const agenda = database.collection('agenda')
