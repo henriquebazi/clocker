@@ -36,14 +36,14 @@ const methods = {
         return res.status(400)
     }
 
-    agenda.doc(`${userId}#${req.body.when}`).set({
+    const block = await agenda.doc(`${userId}#${req.body.when}`).set({
         userId,
         when: req.body.when,
         name: req.body.name,
         phone: req.body.phone,
     })
 
-    return res.status(200)
+    return res.status(200).json(block)
   },
   GET: async (req, res) => {
     console.log(req.query.when)
