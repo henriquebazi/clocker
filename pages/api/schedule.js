@@ -10,17 +10,17 @@ const startAt = new Date(2021, 1, 1, 8, 0)
 const endAt = new Date(2021, 1, 1, 17, 0)
 const totalHours = differenceInHours(endAt, startAt)
 
-const timeBlocks = []
+const timesBlockList = []
 
 for(let blockIndex = 0; blockIndex <= totalHours; blockIndex++) {
   const time = format(addHours(startAt, blockIndex), 'HH:mm')
-  timeBlocks.push(time)
+  timesBlockList.push(time)
 }
 
 const getUserId = async (username) => {
   const profileDoc = await profile
-        .where('username', '==', username)
-        .get()
+      .where('username', '==', username)
+      .get()
 
   const { userId } = profileDoc.docs[0].data()
   return userId
@@ -44,24 +44,29 @@ const methods = {
         phone: req.body.phone,
     })
 
-    return res.status(200).json(block)
+    return res.status(200).json(timesBlockList)
   },
   GET: async (req, res) => {
-    console.log(req.query.when)
     try {
-      // const profileDocs = await profile
-      //   .where('username', '==', req.query.username)
-      //   .get()
-      // const snapshot = await agenda
-      //   .where('userId', '==', profileDocs.user_id)
-      //   .where('when', '==', req.query.when)
-      //   .get()
+      const userId = await getUserId(req.query.username)
+
+      const snapshot = await agenda
+        .where('userId', '==', userId)
+        .where('date', '==', req.query.date)
+        .get()
+
+      const docs = snapshot.docs.map(doc => doc.data())
+      const result = timesBlockList.map(time => ({
+        time,
+        isBlocked: !!docs.find(doc => doc.time === time)
+      }))
     
-      return res.status(200).json(timeBlocks)
+      return res.status(200).json(result)
+      
   
     } catch (error) {
       console.log('FB ERROR:', error)
-      return res.status(401)
+      return res.status(401).json({ message: 'Cannot get'})
     }
   }
 }

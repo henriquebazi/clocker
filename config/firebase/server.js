@@ -14,7 +14,7 @@ const app = firebaseServer.apps.length
         client_email: process.env.CLIENT_EMAIL,
         client_id: process.env.CLIENT_ID,
         client_cert: process.env.CLIENT_CERT
-  })
-});
+      })
+    });
 
 export { firebaseServer }

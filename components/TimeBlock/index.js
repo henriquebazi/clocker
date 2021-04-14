@@ -14,7 +14,7 @@ const setSchedule = async ({ date, ...data }) => {
     data: { 
       ...data,
       date: format(date, 'yyyy-MM-dd'),
-      username: 'henrique'
+      username: window.location.pathname.replace('/', '')
     }
   })
 }
@@ -40,7 +40,7 @@ const ModalTimeBlock = ({ isOpen, onClose, onComplete, isSubmitting, children })
 
 
 
-export const TimeBlock = ({ time, date }) => {
+export const TimeBlock = ({ time, date, disabled }) => {
   const [isOpen, setIsOpen] = useState(false)
   const toggle = () => setIsOpen(prevState => !prevState)
 
@@ -65,9 +65,9 @@ export const TimeBlock = ({ time, date }) => {
   })
 
   return (
-    <Button p={8} bg="blue.500" color="white" onClick={toggle}>
+    <Button p={8} bg="blue.500" color="white" onClick={toggle} disabled={disabled}>
       {time}
-      <ModalTimeBlock 
+      {!disabled && <ModalTimeBlock 
         isOpen={isOpen} 
         onClose={toggle} 
         onComplete={handleSubmit} 
@@ -100,7 +100,7 @@ export const TimeBlock = ({ time, date }) => {
             mt={4}
           />
         </>
-      </ModalTimeBlock>
+      </ModalTimeBlock>}
     </Button>
   )
 }
