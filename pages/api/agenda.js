@@ -4,22 +4,26 @@ const database = firebaseServer.firestore()
 const agenda = database.collection('agenda')
 
 export default async (req, res) => {
-  if(!req.headers.authorization) {
-    return res.status(401)
+  const [, token] = req.headers.authorization.split(' ')
+
+  if(!token) {
+    return res.status(401).json({ message: 'can not get token'})
   }
 
   try {
-    // const [, token] = req.headers.authorization.split(' ')
-    // const { user_id } = await firebaseServer.auth().verifyIdToken(token)
-    // const snapshot = await agenda
-    //   .where('userId', '==', user_id)
-    //   .where('when', '==', req.query.when)
-    //   .get()
+    const { user_id } = await firebaseServer.auth().verifyIdToken(token)
+
+    const snapshot = await agenda
+        .where('userId', '==', user_id)
+        .where('date', '==', req.query.date)
+        .get()
+
+    const docs = snapshot.docs.map(doc => doc.data())
   
-    return res.status(200).json({ oi: 'oi'})
+    return res.status(200).json(docs)
 
   } catch (error) {
     console.log('FB ERROR:', error)
-    return res.status(401)
+    return res.status(401).json({ message: 'can not get time'})
   }
 }

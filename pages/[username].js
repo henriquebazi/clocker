@@ -5,7 +5,7 @@ import { addDays, subDays, format } from 'date-fns'
 import axios from 'axios'
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons'
-import { Button, Container, Box, IconButton, SimpleGrid, Spinner } from "@chakra-ui/react"
+import { Container, Box, IconButton, SimpleGrid, Spinner } from "@chakra-ui/react"
 
 import { Logo, formatDate, TimeBlock } from '../components'
 
@@ -13,8 +13,8 @@ const getSchedule = async ({ when, username }) => axios({
     method: 'get',
     url: '/api/schedule',
     params: {
-      date: format(when, 'yyyy-MM-dd'),
-      username
+      username,
+      date: format(when, 'yyyy-MM-dd')
     },
 })
 
@@ -40,7 +40,6 @@ export default function Schedule () {
     <Container>
       <Header mt={8}>
         <Logo size={150} />
-        <Button>Sair</Button>
       </Header>
 
       <Box display="flex" alignItems="center" >

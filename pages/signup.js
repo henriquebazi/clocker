@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <Container p={4} centerContent>
-      <Logo />
+      <Logo size={200} />
       <Box>
         <Text p={4} mt={8}>
           Crie sua agenda compartilhada
