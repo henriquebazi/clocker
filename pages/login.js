@@ -39,7 +39,7 @@ export default function Login () {
         </Text>
       </Box>
 
-    <Box>
+    <Box w="75%">
       <FormControl id="email" p={4} isRequired>
         <FormLabel>E-mail</FormLabel>
         <Input 

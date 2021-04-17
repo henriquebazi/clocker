@@ -1,6 +1,5 @@
 import { firebaseServer } from '../../config/firebase/server'
-import { addHours, differenceInHours } from 'date-fns'
-import format from 'date-fns/format'
+import { addHours, differenceInHours, format } from 'date-fns'
 
 const database = firebaseServer.firestore()
 const profile = database.collection('profiles')
@@ -48,7 +47,7 @@ const methods = {
         phone: req.body.phone,
     })
 
-    return res.status(200).json(timesBlockList)
+    return res.status(200).json(block)
   },
   GET: async (req, res) => {
     try {

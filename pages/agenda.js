@@ -55,6 +55,8 @@ export default function Agenda () {
   }, [auth.user])
 
   useEffect(() => {
+    if(!auth.user) return 
+
     fetch(when)
   }, [when])
 

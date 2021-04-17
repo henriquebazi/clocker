@@ -37,8 +37,10 @@ export default function Schedule () {
   }
 
   useEffect(() => {
+    if(!router.query.username) return
+    
     refresh()
-  }, [when, router.query.username])
+}, [when, router.query.username])
 
   return (
     <Container>
